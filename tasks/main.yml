@@ -1,10 +1,10 @@
 ---
 
-- name: Deploy metrics-server on cluster
+- name: Deploy kube-metrics-server on cluster
   local_action:
     module: k8s
-    state: "{{ metrics_server_resource_state }}"
-    kubeconfig: "{{ metrics_server_kubeconfig }}"
+    state: "{{ kube_metrics_server_resource_state }}"
+    kubeconfig: "{{ kube_metrics_server_kubeconfig }}"
     definition: "{{ lookup('template', item) }}"
   with_items:
     - aggregated-metrics-reader.yml.j2

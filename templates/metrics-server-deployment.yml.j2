@@ -30,7 +30,7 @@ spec:
         emptyDir: {}
       containers:
       - name: metrics-server
-        image: k8s.gcr.io/metrics-server-amd64:{{ metrics_server_version }}
+        image: k8s.gcr.io/metrics-server-amd64:{{ kube_metrics_server_version }}
         imagePullPolicy: Always
         volumeMounts:
         - name: tmp-dir

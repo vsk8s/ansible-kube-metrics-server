@@ -1,6 +1,6 @@
 ---
 
-metric_server_kubeconfig: "~/.kube/config"
-metrics_server_version: "v0.3.6"
-metrics_server_resource_state: present
+kube_metrics_server_kubeconfig: "~/.kube/config"
+kube_metrics_server_version: "v0.3.6"
+kube_metrics_server_resource_state: present
 
