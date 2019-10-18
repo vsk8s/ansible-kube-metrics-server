@@ -4,7 +4,7 @@
   local_action:
     module: k8s
     state: "{{ metrics_server_resource_state }}"
-    kubeconfig: "{{ metrics_server_resource_kubeconfig }}"
+    kubeconfig: "{{ metrics_server_kubeconfig }}"
     definition: "{{ lookup('template', item) }}"
   with_items:
     - aggregated-metrics-reader.yml.j2
