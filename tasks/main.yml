@@ -1,5 +1,15 @@
 ---
 
+- name: Create directory for certificates
+  become: True
+  file:
+    path: /etc/kubernetes/metric-server
+    state: directory
+    recurse: True
+    owner: root
+    group: root
+    mode: 755
+
 - name: Deploy kube-metrics-server on cluster
   local_action:
     module: k8s
