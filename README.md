@@ -8,3 +8,7 @@ Ansible role to deploy metrics server on a Kubernetes cluster.
 |`kube_metrics_server_version`|v0.3.6|The version of the metrics-server.|
 |`kube_metrics_server_kubeconfig`|~/.kube/config|Path to the kubeconfig to use.|
 |`kube_metrics_server_resource_state`|present|The state of the metrics-server (present, absent, etc.)|
+|`kube_metrics_server_certfile`|`/path`| - |
+|`kube_metrics_server_keyfile`|`/path`| - |
+|`kube_metrics_server_request_header_cafile`|`/path`| - |
+|`kube_metrics_server_kubelet_cafile`|present|`/path`| - |

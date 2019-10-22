@@ -32,6 +32,15 @@ spec:
       - name: metrics-server
         image: k8s.gcr.io/metrics-server-amd64:{{ kube_metrics_server_version }}
         imagePullPolicy: Always
+        args:
+        - --tls-cert-file={{ kube_metrics_server_certfile }}
+        - --tls-private-key-file={{ kube_metrics_server_keyfile }}
+        - --kubelet-certificate-authority={{ kube_metrics_server_kubelet_cafile }}
+        - --client-ca-file={{ kube_metrics_server_request_header_cafile }}
+	- --request-header-client-ca-file={{ kube_metrics_server_request_header_cafile }}
+        - --requestheader-extra-headers-prefix=X-Remote-Extra-
+        - --requestheader-group-headers=X-Remote-Group
+        - --requestheader-username-headers=X-Remote-User
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
