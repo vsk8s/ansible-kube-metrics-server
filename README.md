@@ -10,5 +10,5 @@ Ansible role to deploy metrics server on a Kubernetes cluster.
 |`kube_metrics_server_resource_state`|present|The state of the metrics-server (present, absent, etc.)|
 |`kube_metrics_server_certfile`|`/path`| - |
 |`kube_metrics_server_keyfile`|`/path`| - |
-|`kube_metrics_server_request_header_cafile`|`/path`| - |
+|`kube_metrics_server_requestheader_client_ca`|`/path`| - |
 |`kube_metrics_server_kubelet_cafile`|`/path`| - |
