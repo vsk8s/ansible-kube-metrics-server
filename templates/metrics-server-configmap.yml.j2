@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metrics-server-config
+  namespace: kube-system
+data:
+  metrics-server.cert: {{ lookup('file', '/tmp/metrics-server.cert') }}
+  metrics-server.key: {{ lookup('file', '/tmp/metrics-server.key') }}
+  kubelet-ca.cert: {{ lookup('file', '/tmp/kubelet-ca.cert') }}
+  requestheader-ca.cert: {{ lookup('file', '/tmp/requestheader-ca.cert') }}
