@@ -28,21 +28,26 @@ spec:
       # mount in tmp so we can safely use from-scratch images and/or read-only containers
       - name: tmp-dir
         emptyDir: {}
+      - name: config-volume
+        configMap:
+          name: metrics-server-config
       containers:
       - name: metrics-server
         image: k8s.gcr.io/metrics-server-amd64:{{ kube_metrics_server_version }}
         imagePullPolicy: Always
         args:
-        - --tls-cert-file={{ kube_metrics_server_certfile }}
-        - --tls-private-key-file={{ kube_metrics_server_keyfile }}
-        - --kubelet-certificate-authority={{ kube_metrics_server_kubelet_cafile }}
-        - --client-ca-file={{ kube_metrics_server_requestheader_client_ca }}
-	- --requestheader-client-ca-file={{ kube_metrics_server_requestheader_client_ca }}
+        - --tls-cert-file=/config/metrics-server.cert
+        - --tls-private-key-file=/config/metrics-server.key
+        - --kubelet-certificate-authority=/config/kubelet-ca.cert
+        - --client-ca-file=/config/requestheader-ca.cert
+	- --requestheader-client-ca-file=/config/requestheader-ca.cert
         - --requestheader-extra-headers-prefix=X-Remote-Extra-
         - --requestheader-group-headers=X-Remote-Group
         - --requestheader-username-headers=X-Remote-User
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
+        - name: config-volume
+          mountPath: /config
 
 
