@@ -28,32 +28,25 @@ spec:
       # mount in tmp so we can safely use from-scratch images and/or read-only containers
       - name: tmp-dir
         emptyDir: {}
-      - name: config-volume
-        configMap:
-          name: metrics-server-config
-      - name: metrics-server-keyfile
+      - name: metrics-server-certs-volume
         secret:
-          secretName: metrics-server-keyfile
+          secretName: metrics-server-certs
       containers:
       - name: metrics-server
         image: k8s.gcr.io/metrics-server-amd64:{{ kube_metrics_server_version }}
         imagePullPolicy: Always
         args:
-        - --tls-cert-file=/config/metrics-server.cert
-        - --tls-private-key-file=/secret/metrics-server.key
-        - --kubelet-certificate-authority=/config/kubelet-ca.cert
-        - --client-ca-file=/config/requestheader-ca.cert
-        - --requestheader-client-ca-file=/config/requestheader-ca.cert
+        - --tls-cert-file=/certs/metrics-server.cert
+        - --tls-private-key-file=/certs/metrics-server.key
+        - --kubelet-certificate-authority=/certs/kubelet-ca.cert
+        - --client-ca-file=/certs/requestheader-ca.cert
+        - --requestheader-client-ca-file=/certs/requestheader-ca.cert
         - --requestheader-extra-headers-prefix=X-Remote-Extra-
         - --requestheader-group-headers=X-Remote-Group
         - --requestheader-username-headers=X-Remote-User
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
-        - name: config-volume
-          mountPath: /config
-        - name: metrics-server-keyfile
-          mountPath: /secret
-
-
-
+        - name: metrics-server-certs-volume
+          mountPath: /certs
+          readOnly: true

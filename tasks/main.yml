@@ -12,7 +12,6 @@
     - auth-reader.yml.j2
     - metrics-apiservice.yml.j2
     - metrics-server-secret.yml.j2
-    - metrics-server-configmap.yml.j2
     - metrics-server-deployment.yml.j2
     - metrics-server-service.yml.j2
     - resource-reader.yml.j2
