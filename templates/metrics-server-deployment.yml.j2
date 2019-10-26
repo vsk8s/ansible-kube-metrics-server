@@ -31,13 +31,16 @@ spec:
       - name: config-volume
         configMap:
           name: metrics-server-config
+      - name: metrics-server-keyfile
+        secret:
+          secretName: metrics-server-keyfile
       containers:
       - name: metrics-server
         image: k8s.gcr.io/metrics-server-amd64:{{ kube_metrics_server_version }}
         imagePullPolicy: Always
         args:
         - --tls-cert-file=/config/metrics-server.cert
-        - --tls-private-key-file=/config/metrics-server.key
+        - --tls-private-key-file=/secret/metrics-server.key
         - --kubelet-certificate-authority=/config/kubelet-ca.cert
         - --client-ca-file=/config/requestheader-ca.cert
 	- --requestheader-client-ca-file=/config/requestheader-ca.cert
@@ -49,5 +52,8 @@ spec:
           mountPath: /tmp
         - name: config-volume
           mountPath: /config
+        - name: metrics-server-keyfile
+          mountPath: /secret
+
 
 
