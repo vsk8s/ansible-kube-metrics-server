@@ -5,6 +5,7 @@ kind: APIService
 metadata:
   name: v1beta1.metrics.k8s.io
 spec:
+  caBundle: {{ lookup('file', kube_metrics_server_requestheader_client_ca) | b64encode }}
   service:
     name: metrics-server
     namespace: kube-system
@@ -13,4 +14,3 @@ spec:
   insecureSkipTLSVerify: false
   groupPriorityMinimum: 100
   versionPriority: 100
-

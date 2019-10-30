@@ -31,6 +31,9 @@ spec:
       - name: metrics-server-certs-volume
         secret:
           secretName: metrics-server-certs
+      - name: extension-apiserver-configmap-volume
+        configMap:
+          name: extension-apiserver-authentication
       containers:
       - name: metrics-server
         image: k8s.gcr.io/metrics-server-amd64:{{ kube_metrics_server_version }}
@@ -39,15 +42,18 @@ spec:
         - --tls-cert-file=/certs/metrics-server.cert
         - --tls-private-key-file=/certs/metrics-server.key
         - --kubelet-certificate-authority=/certs/kubelet-ca.cert
-        - --client-ca-file=/certs/requestheader-ca.cert
-        - --requestheader-client-ca-file=/certs/requestheader-ca.cert
+        - --client-ca-file=/config/client-ca-file
+        - --requestheader-client-ca-file=/config/requestheader-client-ca-file
         - --requestheader-extra-headers-prefix=X-Remote-Extra-
         - --requestheader-group-headers=X-Remote-Group
         - --requestheader-username-headers=X-Remote-User
-        - --v=5
+        - --metric-resolution={{ kube_metrics_server_metric_resolution }}
+        - --v={{ kube_metrics_server_verbosity }}
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
         - name: metrics-server-certs-volume
           mountPath: /certs
           readOnly: true
+        - name: extension-apiserver-configmap-volume
+          mountPath: /config

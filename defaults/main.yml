@@ -4,7 +4,10 @@ kube_metrics_server_kubeconfig: "~/.kube/config"
 kube_metrics_server_version: "v0.3.6"
 kube_metrics_server_resource_state: present
 
-kube_metrics_server_certfile: /path
-kube_metrics_server_keyfile: /path
-kube_metrics_server_requestheader_client_ca: /path
-kube_metrics_server_kubelet_cafile: /path
+kube_metrics_server_certfile: /tmp/metrics-server.cert
+kube_metrics_server_keyfile: /tmp/metrics-server.key
+kube_metrics_server_requestheader_client_ca: /tmp/kube-requestheader-ca.cert
+kube_metrics_server_kubelet_cafile: /tmp/kubelet-ca.cert
+
+kube_metrics_server_verbosity: 2
+kube_metrics_server_metric_resolution: 10s
