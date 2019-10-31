@@ -24,5 +24,6 @@ This role assumes that:
 
 ## Resources
 [metrics-server GitHub repository](https://github.com/kubernetes-incubator/metrics-server)
+
 [Kubernetes documentation on aggegation layer](https://kubernetes.io/docs/tasks/access-kubernetes-api/configure-aggregation-layer/)
 
