@@ -36,7 +36,7 @@ spec:
           name: extension-apiserver-authentication
       containers:
       - name: metrics-server
-        image: k8s.gcr.io/metrics-server-amd64:{{ kube_metrics_server_version }}
+        image: k8s.gcr.io/metrics-server/metrics-server:{{ kube_metrics_server_version }}
         imagePullPolicy: Always
         args:
         - --tls-cert-file=/certs/metrics-server.cert

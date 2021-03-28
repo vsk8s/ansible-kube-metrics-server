@@ -1,7 +1,7 @@
 ---
 
 kube_metrics_server_kubeconfig: "~/.kube/config"
-kube_metrics_server_version: "v0.3.6"
+kube_metrics_server_version: "v0.3.7"
 kube_metrics_server_resource_state: present
 
 kube_metrics_server_certfile: /tmp/metrics-server.cert
