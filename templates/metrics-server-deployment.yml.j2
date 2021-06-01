@@ -49,6 +49,7 @@ spec:
         - --requestheader-username-headers=X-Remote-User
         - --metric-resolution={{ kube_metrics_server_metric_resolution }}
         - --v={{ kube_metrics_server_verbosity }}
+	- --secure-port=443
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
@@ -57,3 +58,18 @@ spec:
           readOnly: true
         - name: extension-apiserver-configmap-volume
           mountPath: /config
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: https
+            scheme: HTTPS
+          periodSeconds: 10
+          failureThreshold: 3
+          initialDelaySeconds: 20
+        livenessProbe:
+          httpGet:
+            path: /livez
+            port: https
+            scheme: HTTPS
+          periodSeconds: 10
+          failureThreshold: 3
