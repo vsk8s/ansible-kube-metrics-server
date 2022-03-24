@@ -1,5 +1,4 @@
 ---
-
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -14,6 +13,7 @@ metadata:
   labels:
     k8s-app: metrics-server
 spec:
+  replicas: 2
   selector:
     matchLabels:
       k8s-app: metrics-server
@@ -23,6 +23,16 @@ spec:
       labels:
         k8s-app: metrics-server
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: k8s-app
+                    operator: In
+                    values:
+                      - metrics-server
+              topologyKey: "kubernetes.io/hostname"
       serviceAccountName: metrics-server
       volumes:
       # mount in tmp so we can safely use from-scratch images and/or read-only containers
@@ -57,3 +67,9 @@ spec:
           readOnly: true
         - name: extension-apiserver-configmap-volume
           mountPath: /config
+        resources:
+          limits:
+            memory: 170Mi
+          requests:
+            cpu: 100m
+            memory: 70Mi
