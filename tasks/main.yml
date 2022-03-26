@@ -2,7 +2,7 @@
 
 - name: Deploy kube-metrics-server on cluster
   local_action:
-    module: k8s
+    module: kubernetes.core.k8s
     state: "{{ kube_metrics_server_resource_state }}"
     kubeconfig: "{{ kube_metrics_server_kubeconfig }}"
     definition: "{{ lookup('template', item) }}"
